@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6D439E4E-0B8F-4EF1-853D-FFB8166AA2EA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Instruction_Compiler</RootNamespace>
+    <AssemblyName>Instruction Compiler</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="RJCP.SerialPortStream, Version=2.2.0.0, Culture=neutral, PublicKeyToken=5f5e7b70c6a74deb, processorArchitecture=MSIL">
+      <HintPath>..\packages\SerialPortStream.2.2.0\lib\net40\RJCP.SerialPortStream.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\portable-net40+sl4+win8+wp8\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Command.cs" />
+    <Compile Include="CommandVariants.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommandVariants.Designer.cs">
+      <DependentUpon>CommandVariants.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditCommand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditCommand.Designer.cs">
+      <DependentUpon>EditCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditMultSignal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditMultSignal.Designer.cs">
+      <DependentUpon>EditMultSignal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditSignal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditSignal.Designer.cs">
+      <DependentUpon>EditSignal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Signal.cs" />
+    <Compile Include="SignalConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SignalConfig.Designer.cs">
+      <DependentUpon>SignalConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransmitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransmitForm.Designer.cs">
+      <DependentUpon>TransmitForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CommandVariants.resx">
+      <DependentUpon>CommandVariants.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditCommand.resx">
+      <DependentUpon>EditCommand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditMultSignal.resx">
+      <DependentUpon>EditMultSignal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditSignal.resx">
+      <DependentUpon>EditSignal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SignalConfig.resx">
+      <DependentUpon>SignalConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransmitForm.resx">
+      <DependentUpon>TransmitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
