@@ -240,8 +240,8 @@ namespace Instruction_Compiler
             cmd.Code = (byte)Program.commands.Count;
             for (int i = 0; i < 16; i++) {
                 var step = Program.fetchCmd.SignalSteps[i];
-                if (step.Count > 0) cmd.SignalSteps[i] = step;
-                else if (Program.codeCmds[0] != null) cmd.SignalSteps[i] = Program.codeCmds[0].SignalSteps[15];
+                if (step.Count > 0) cmd.SignalSteps[i].UnionWith(step);
+                else if (Program.codeCmds[0] != null) cmd.SignalSteps[i].UnionWith(Program.codeCmds[0].SignalSteps[15]);
             }
             Program.commands.Add(cmd);
             //UpdateTable();
