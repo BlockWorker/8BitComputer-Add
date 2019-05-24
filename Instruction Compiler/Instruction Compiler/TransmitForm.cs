@@ -154,12 +154,12 @@ namespace Instruction_Compiler
                     if (data[seg] != oldData[seg]) {
                         portStream.Write(new byte[] { 1, (byte)(seg >> 8), (byte)seg, 0 }, 0, 4);
                         portStream.Write(data, seg, 1);
-                        Debug.WriteLine("Written to address: " + seg);
+                        Debug.WriteLine("Written to address: " + Convert.ToString(seg, 16));
                     } else {
                         portStream.Write(new byte[] { 3 }, 0, 1);
                         //Debug.WriteLine("Omitting address " + seg);
                     }
-                    seg++;
+                    while (++seg < 8192 && data[seg] == oldData[seg]) ;
                     break;
                 case 2:
                     state = 0;

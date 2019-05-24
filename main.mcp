@@ -16358,7 +16358,7 @@
         </SignalState>
         <SignalState>
           <SigName>Output</SigName>
-          <Value>10</Value>
+          <Value>13</Value>
         </SignalState>
       </ArrayOfSignalState>
       <ArrayOfSignalState>
@@ -16480,7 +16480,7 @@
             </SignalState>
             <SignalState>
               <SigName>Output</SigName>
-              <Value>10</Value>
+              <Value>13</Value>
             </SignalState>
           </ArrayOfSignalState>
           <ArrayOfSignalState>
@@ -16490,13 +16490,13 @@
             </SignalState>
             <SignalState>
               <SigName>Output</SigName>
-              <Value>12</Value>
+              <Value>14</Value>
             </SignalState>
           </ArrayOfSignalState>
           <ArrayOfSignalState>
             <SignalState>
-              <SigName>Shift Register Mode</SigName>
-              <Value>3</Value>
+              <SigName>Input</SigName>
+              <Value>14</Value>
             </SignalState>
             <SignalState>
               <SigName>Output</SigName>
@@ -16573,7 +16573,7 @@
         </SignalState>
         <SignalState>
           <SigName>Output</SigName>
-          <Value>12</Value>
+          <Value>14</Value>
         </SignalState>
       </ArrayOfSignalState>
       <ArrayOfSignalState>
@@ -16601,7 +16601,7 @@
         </SignalState>
         <SignalState>
           <SigName>Output</SigName>
-          <Value>10</Value>
+          <Value>13</Value>
         </SignalState>
       </ArrayOfSignalState>
       <ArrayOfSignalState>
@@ -16616,8 +16616,8 @@
       </ArrayOfSignalState>
       <ArrayOfSignalState>
         <SignalState>
-          <SigName>Shift Register Mode</SigName>
-          <Value>3</Value>
+          <SigName>Input</SigName>
+          <Value>14</Value>
         </SignalState>
         <SignalState>
           <SigName>Output</SigName>
@@ -16688,7 +16688,7 @@
             </SignalState>
             <SignalState>
               <SigName>Output</SigName>
-              <Value>12</Value>
+              <Value>14</Value>
             </SignalState>
           </ArrayOfSignalState>
           <ArrayOfSignalState>
@@ -16726,13 +16726,13 @@
             </SignalState>
             <SignalState>
               <SigName>Output</SigName>
-              <Value>10</Value>
+              <Value>13</Value>
             </SignalState>
           </ArrayOfSignalState>
           <ArrayOfSignalState>
             <SignalState>
-              <SigName>Shift Register Mode</SigName>
-              <Value>3</Value>
+              <SigName>Input</SigName>
+              <Value>14</Value>
             </SignalState>
             <SignalState>
               <SigName>Output</SigName>
