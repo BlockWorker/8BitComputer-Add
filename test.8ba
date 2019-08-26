@@ -1,0 +1,13 @@
+.inst "main.mcp"
+mov [fe], 00
+mov [ff], 08
+mov zh, 00
+inp
+mov zl, a
+mov b, [z]
+inp
+mul
+out
+jmp
+.addr 0020
+.data 01fc2bd3e67de5

@@ -5,351 +5,148 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Serialization;
 using System.IO;
+using System.Text.RegularExpressions;
+using FastColoredTextBoxNS;
 
-namespace Instruction_Compiler
-{
-    public partial class MainForm : Form
-    {
-        XmlSerializer sigSer = new XmlSerializer(typeof(Signal[][]), new Type[] { typeof(BasicSignal), typeof(MultiplexedSignal) });
-        XmlSerializer cmdSer = new XmlSerializer(typeof(Command[]));
-        Command selectedCommand = Program.fetchCmd;
-
-        private class LVComp : System.Collections.IComparer {
-            public int Compare(object x, object y) {
-                var xc = (Command)(x as ListViewItem).Tag;
-                var yc = (Command)(y as ListViewItem).Tag;
-                if (xc.Code > 0x7f) return -1;
-                return xc.Code.CompareTo(yc.Code);
-            }
-        }
-
-        public MainForm()
-        {
+namespace Instruction_Compiler {
+    public partial class MainForm : Form {
+        public MainForm() {
             InitializeComponent();
-            commandView.ListViewItemSorter = new LVComp();
         }
 
-        /*private void UpdateTable()
-        {
-            commandTable.SuspendLayout();
-            int sigCount = Program.signals.Sum((a) => (a?.Count((e) => e != null)).GetValueOrDefault(0));
-            commandTable.Controls.Clear();
-            commandTable.ColumnCount = sigCount + 2;
-            commandTable.ColumnStyles.Clear();
-            commandTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20));
-            commandTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120));
-            commandTable.RowCount = Program.commands.Sum((c) => c?.Signals.Count()).GetValueOrDefault(0) + Program.loadCmd.Signals.Count + 1;
-            commandTable.RowStyles.Clear();
-            for (int i = 0; i < commandTable.RowCount; i++) commandTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 28));
-            var nameLabel = new Label();
-            nameLabel.Text = "Name";
-            commandTable.Controls.Add(nameLabel, 1, 0);
-            foreach (List<Signal> ch in Program.signals)
-            {
-                if (ch == null) continue;
-                foreach (Signal sig in ch)
-                {
-                    commandTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, sig.GetType() == typeof(MultiplexedSignal) ? 60 : 40));
-                    var label = new Label();
-                    label.Text = sig.Name;
-                    commandTable.Controls.Add(label, commandTable.ColumnStyles.Count - 1, 0);
-                }
-            }
-            int nextRow = AddCommandToTable(Program.loadCmd, 1);
-            foreach (Command cmd in Program.commands)
-            {
-                nextRow = AddCommandToTable(cmd, nextRow);
-            }
-            commandTable.ResumeLayout();
-        }
+        private string fileName = "";
+        private static readonly Regex numberRegex = new Regex(@"(?<=[ \[])(?:[0-9A-F]{2})+", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex commentRegex = new Regex(@"#.*$", RegexOptions.Compiled | RegexOptions.Multiline);
+        private static readonly Regex commentOnlyRegex = new Regex(@"^\s*#.*$", RegexOptions.Compiled | RegexOptions.Multiline);
+        private static readonly Regex registerRegex = new Regex(@"(?:A|B|C|P|S|V|ZL|ZH|Z)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex instCommandRegex = new Regex("^\\s*\\.INST \"(.*)\"\\s*(?:#.*)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex addrCommandRegex = new Regex(@"^\s*\.ADDR ([0-9A-F]{4})\s*(?:#.*)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex dataCommandRegex = new Regex(@"^\s*\.DATA ((?:[0-9A-F]{2} *)+)\s*(?:#.*)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex keywordRegex = new Regex(@"(?:\.INST|\.ADDR|\.DATA)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Style blueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Bold);
+        private static readonly Style greenStyle = new TextStyle(Brushes.Green, null, FontStyle.Regular);
+        private static readonly Style grayStyle = new TextStyle(Brushes.Gray, null, FontStyle.Regular);
+        private static readonly Style redStyle = new TextStyle(Brushes.IndianRed, null, FontStyle.Regular);
+        private static readonly Style yellowStyle = new TextStyle(Brushes.Goldenrod, null, FontStyle.Regular);
+        private static readonly Style errorStyle = new WavyLineStyle(255, Color.Red);
 
-        /// <returns>Next free row index</returns>
-        private int AddCommandToTable(Command cmd, int startRow)
-        {
-            var rad = new RadioButton();
-            rad.Text = "";
-            rad.Tag = cmd;
-            rad.CheckedChanged += radButton_CheckedChanged;
-            if (startRow == 1) rad.Checked = true;
-            commandTable.Controls.Add(rad, 0, startRow);
-            var nameBox = new TextBox();
-            nameBox.Tag = cmd;
-            nameBox.Text = cmd.Name;
-            nameBox.TextChanged += nameBox_TextChanged;
-            commandTable.Controls.Add(nameBox, 1, startRow);
-            for (int row = 0; row < cmd.Signals.Count; row++)
-            {
-                if (row > 0)
-                {
-                    var label = new Label();
-                    label.Text = (row + 1).ToString();
-                    commandTable.Controls.Add(label, 1, row + startRow);
+        public void UpdateHighlighting() {
+            codeBox.Range.ClearStyle(blueStyle, greenStyle, grayStyle, redStyle, yellowStyle, errorStyle);
+            codeBox.Range.SetStyle(grayStyle, commentRegex); //comments
+            codeBox.Range.SetStyle(yellowStyle, keywordRegex); //keywords
+            codeBox.Range.SetStyle(blueStyle, Program.cmdNameRegex); //command names
+            codeBox.Range.SetStyle(greenStyle, numberRegex); //numbers
+            codeBox.Range.SetStyle(redStyle, registerRegex); //registers
+            codeBox.LineNumberValues.Clear();
+            int currAddr = 0;
+            for (int i = 0; i < codeBox.LinesCount; i++) {
+                var line = codeBox.Lines[i];
+                var lRange = codeBox.GetLine(i);
+                if (currAddr < 0) {
+                    codeBox.LineNumberValues.Add(currAddr);
+                    continue;
                 }
-                int col = 2;
-                foreach (List<Signal> ch in Program.signals)
-                {
-                    if (ch == null) continue;
-                    foreach (Signal sig in ch)
-                    {
-                        if (sig == null) continue;
-                        if (sig.GetType() == typeof(BasicSignal))
-                        {
-                            var cb = new CheckBox();
-                            cb.Text = "";
-                            cb.Tag = (cmd, row, sig.Name);
-                            cb.Checked = cmd.Signals[row].Any((s) => s.SigName == sig.Name);
-                            cb.CheckedChanged += checkBox_CheckedChanged;
-                            commandTable.Controls.Add(cb, col, row + startRow);
-                        }
-                        else if (sig.GetType() == typeof(MultiplexedSignal))
-                        {
-                            var cb = new ComboBox();
-                            cb.Text = "";
-                            cb.Tag = (cmd, row, sig.Name);
-                            cb.Items.Clear();
-                            foreach (MultiSubSignal ss in ((MultiplexedSignal)sig).SubSignals) cb.Items.Add(ss.Name);
-                            cb.SelectedIndex = (cmd.Signals[row].FirstOrDefault((s) => s.SigName == sig.Name)?.Value).GetValueOrDefault(0);
-                            cb.SelectedIndexChanged += comboBox_SelectedIndexChanged;
-                            commandTable.Controls.Add(cb, col, row + startRow);
-                        }
-                        col++;
+                bool found = false;
+                if (commentOnlyRegex.IsMatch(line)) {
+                    codeBox.LineNumberValues.Add(-1);
+                    found = true;
+                } else if (instCommandRegex.IsMatch(line)) {
+                    lRange.ClearStyle(blueStyle, greenStyle, redStyle);
+                    codeBox.LineNumberValues.Add(-1);
+                    found = true;
+                    if (i > 0) {
+                        lRange.SetStyle(errorStyle);
+                    } else if (fileName != "") {
+                        var match = instCommandRegex.Match(line);
+                        var relPath = match.Groups[1].Value;
+                        var dir = fileName.Substring(0, fileName.LastIndexOf('\\') + 1);
+                        var fullPath = dir + relPath;
+                        if (!File.Exists(fullPath)) lRange.SetStyle(errorStyle);
                     }
-                };
-            }
-            return startRow + cmd.Signals.Count;
-        }
-
-        private void radButton_CheckedChanged(object sender, EventArgs e)
-        {
-            var rb = (RadioButton)sender;
-            if (rb.Checked) selectedCommand = (Command)rb.Tag;
-        }
-
-        private void nameBox_TextChanged(object sender, EventArgs e)
-        {
-            var tb = (TextBox)sender;
-            var cmd = (Command)tb.Tag;
-            cmd.Name = tb.Text;
-        }
-
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
-        {
-            var cb = (CheckBox)sender;
-            var id = ((Command, int, string))cb.Tag;
-            var sig = Program.getSignal(id.Item3);
-            if (sig == null || sig.GetType() != typeof(BasicSignal)) return;
-            var step = id.Item1.Signals[id.Item2];
-            if (cb.Checked) step.Add(new SignalState(id.Item3));
-            else step.RemoveWhere((s) => s.SigName == id.Item3);
-        }
-
-        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var cb = (ComboBox)sender;
-            var id = ((Command, int, string))cb.Tag;
-            var sig = Program.getSignal(id.Item3);
-            if (sig == null || sig.GetType() != typeof(MultiplexedSignal)) return;
-            var step = id.Item1.Signals[id.Item2];
-            if (cb.SelectedIndex == 0) step.RemoveWhere((s) => s.SigName == id.Item3);
-            else if (step.Any((s) => s.SigName == id.Item3)) step.First((s) => s.SigName == id.Item3).Value = cb.SelectedIndex;
-            else step.Add(new SignalState(id.Item3, cb.SelectedIndex));
-        }*/
-
-        public void UpdateList()
-        {
-            commandView.Items.Clear();
-            AddCmdToList(Program.fetchCmd);
-            foreach (Command cmd in Program.commands)
-            {
-                AddCmdToList(cmd);
-            }
-        }
-
-        private void AddCmdToList(Command cmd)
-        {
-            var item = new ListViewItem(cmd.Name);
-            item.SubItems.Add(cmd.Code < 128 ? "0x" + cmd.Code.ToString("X2") : "");
-            for (int i = 0; i < 16; i++) {
-                var sub = new ListViewItem.ListViewSubItem();
-                foreach (SignalState sig in cmd.SignalSteps[i])
-                {
-                    if (sig.Value > 0 && sig.Signal.GetType() == typeof(MultiplexedSignal)) sub.Text += ((MultiplexedSignal)sig.Signal).SubSignals[sig.Value].Name + " ";
-                    else if (sig.Signal.GetType() == typeof(BasicSignal)) sub.Text += sig.SigName + " ";
-                }
-                foreach (var v in cmd.Variants) {
-                    if (v.SignalSteps[i].SequenceEqual(cmd.SignalSteps[i])) continue;
-                    sub.Text += "| ";
-                    foreach (SignalState varSig in v.SignalSteps[i]) {
-                        if (varSig.Value > 0 && varSig.Signal.GetType() == typeof(MultiplexedSignal)) sub.Text += ((MultiplexedSignal)varSig.Signal).SubSignals[varSig.Value].Name + " ";
-                        else if (varSig.Signal.GetType() == typeof(BasicSignal)) sub.Text += varSig.SigName + " ";
+                } else if (addrCommandRegex.IsMatch(line)) {
+                    var match = addrCommandRegex.Match(line);
+                    currAddr = int.Parse(match.Groups[1].Value, System.Globalization.NumberStyles.HexNumber);
+                    codeBox.LineNumberValues.Add(-1);
+                    found = true;
+                } else if (dataCommandRegex.IsMatch(line)) {
+                    var match = dataCommandRegex.Match(line);
+                    var dataStr = match.Groups[1].Value.Replace(" ", "");
+                    codeBox.LineNumberValues.Add(currAddr);
+                    currAddr += dataStr.Length / 2;
+                    found = true;
+                } else foreach (var (regex, cmd) in Program.regexCommands) {
+                        if (regex.IsMatch(line)) {
+                            codeBox.LineNumberValues.Add(currAddr);
+                            currAddr += cmd.ByteLength;
+                            found = true;
+                            break;
+                        }
                     }
+                if (!found) {
+                    codeBox.LineNumberValues.Add(currAddr);
+                    currAddr = -1;
+                    lRange.ClearStyle(redStyle);
+                    lRange.SetStyle(errorStyle);
                 }
-                item.SubItems.Add(sub);
             }
-            item.Tag = cmd;
-            commandView.Items.Add(item);
+            codeBox.LineNumberValues.Add(currAddr);
         }
 
-        private void controlSignalsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new SignalConfig().Show();
-        }
-
-        private void clearConfigToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Do you want to delete the entire signal configuration?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes) Program.signals = new List<Signal>[10];
-        }
-
-        private void saveConfigToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (configSaveDialog.ShowDialog() == DialogResult.Cancel) return;
-            var sw = File.Create(configSaveDialog.FileName);
-            Signal[][] sigs = new Signal[10][];
-            for (int i = 0; i < 10; i++) sigs[i] = Program.signals[i]?.ToArray();
-            sigSer.Serialize(sw, sigs);
-            sw.Close();
-        }
-
-        private void loadConfigToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (configOpenDialog.ShowDialog() == DialogResult.Cancel) return;
-            LoadConfig(configOpenDialog.FileName);
-        }
-
-        private void LoadConfig(string path) {
-            if (!File.Exists(path)) return;
-            var sr = File.OpenRead(path);
-            if (!sigSer.CanDeserialize(XmlReader.Create(sr))) {
-                sr.Close();
-                return;
+        private void newToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (fileName != "") {
+                if (MessageBox.Show("All unsaved changes will be discarded. Create a new file anyway?", "New file", MessageBoxButtons.YesNo) == DialogResult.No) return;
             }
-            sr.Seek(0, SeekOrigin.Begin);
-            var sigs = (Signal[][])sigSer.Deserialize(XmlReader.Create(sr));
-            for (int i = 0; i < 10; i++) Program.signals[i] = sigs[i] == null ? null : new List<Signal>(sigs[i]);
-            sr.Close();
+            codeBox.Text = "";
+            fileName = "";
+            Text = "8BitCPU Compiler";
         }
 
-        private void newCmdButton_Click(object sender, EventArgs e) {
-            var cmd = new Command();
-            cmd.InitEmpty();
-            cmd.Code = (byte)Program.commands.Count;
-            for (int i = 0; i < 16; i++) {
-                var step = Program.fetchCmd.SignalSteps[i];
-                if (step.Count > 0) cmd.SignalSteps[i].UnionWith(step);
-                else if (Program.codeCmds[0] != null) cmd.SignalSteps[i].UnionWith(Program.codeCmds[0].SignalSteps[15]);
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (fileName == "") SaveAs();
+            else File.WriteAllText(fileName, codeBox.Text);
+            UpdateHighlighting();
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e) {
+            SaveAs();
+            UpdateHighlighting();
+        }
+
+        private void SaveAs() {
+            if (progSaveDialog.ShowDialog() == DialogResult.Cancel) return;
+            File.WriteAllText(progSaveDialog.FileName, codeBox.Text);
+            fileName = progSaveDialog.FileName;
+            Text = "8BitCPU Compiler - " + fileName.Substring(fileName.LastIndexOf('\\') + 1);
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (progOpenDialog.ShowDialog() == DialogResult.Cancel) return;
+            if (fileName != "") {
+                if (MessageBox.Show("All unsaved changes will be discarded. Open file anyway?", "Open file", MessageBoxButtons.YesNo) == DialogResult.No) return;
             }
-            Program.commands.Add(cmd);
-            //UpdateTable();
-            new EditCommand(cmd).ShowDialog(this);
-        }
-
-        private void remCmdButton_Click(object sender, EventArgs e)
-        {
-            //if (Program.commands.Remove(selectedCommand)) UpdateTable();
-            if (commandView.SelectedItems.Count > 0)
-            {
-                if (Program.commands.Remove((Command)commandView.SelectedItems[0].Tag)) UpdateList();
+            codeBox.Text = File.ReadAllText(progOpenDialog.FileName);
+            fileName = progOpenDialog.FileName;
+            var firstLine = codeBox.Lines[0];
+            if (instCommandRegex.IsMatch(firstLine)) {
+                var match = instCommandRegex.Match(firstLine);
+                var relPath = match.Groups[1].Value;
+                var dir = fileName.Substring(0, fileName.LastIndexOf('\\') + 1);
+                var fullPath = dir + relPath;
+                Program.LoadMicrocodeProgram(fullPath);
             }
-            ScrollToLast();
+
+            UpdateHighlighting();
+            Text = "8BitCPU Compiler - " + fileName.Substring(fileName.LastIndexOf('\\') + 1);
         }
 
-        /*private void addStepButton_Click(object sender, EventArgs e)
-        {
-            selectedCommand.Signals.Add(new HashSet<SignalState>());
-            UpdateTable();
+        private void commandsToolStripMenuItem_Click(object sender, EventArgs e) {
+            new CommandMainForm().ShowDialog(this);
         }
 
-        private void remStepButton_Click(object sender, EventArgs e)
-        {
-            if (selectedCommand.Signals.Count > 1)
-            {
-                selectedCommand.Signals.RemoveAt(selectedCommand.Signals.Count - 1);
-                UpdateTable();
-            }
-        }*/
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            //UpdateTable();
-            UpdateList();
-        }
-
-        private void editButton_Click(object sender, EventArgs e)
-        {
-            if (commandView.SelectedItems.Count > 0)
-            {
-                new EditCommand((Command)commandView.SelectedItems[0].Tag).ShowDialog(this);
-            }
-        }
-
-        private void newProgramToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Do you want to start a new program?\r\nUnsaved changes to the current program will be lost!", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                Program.commands = new List<Command>();
-                Program.fetchCmd = new Command();
-                Program.fetchCmd.InitEmpty();
-            }
-            UpdateList();
-        }
-
-        private void saveProgramToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (programSaveDialog.ShowDialog() == DialogResult.Cancel) return;
-            var sw = File.Create(programSaveDialog.FileName);
-            var saveArr = new Command[Program.commands.Count + 1];
-            saveArr[0] = Program.fetchCmd;
-            Array.Copy(Program.commands.ToArray(), 0, saveArr, 1, Program.commands.Count);
-            cmdSer.Serialize(sw, saveArr);
-            sw.Close();
-        }
-
-        private void loadProgramToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (programOpenDialog.ShowDialog() == DialogResult.Cancel) return;
-            if (!File.Exists(programOpenDialog.FileName)) return;
-            LoadConfig(programOpenDialog.FileName.Replace(".mcp", ".sig"));
-            var sr = File.OpenRead(programOpenDialog.FileName);
-            if (!cmdSer.CanDeserialize(XmlReader.Create(sr)))
-            {
-                sr.Close();
-                return;
-            }
-            sr.Seek(0, SeekOrigin.Begin);
-            var saveArr = (Command[])cmdSer.Deserialize(sr);
-            Program.fetchCmd = saveArr[0];
-            Program.commands = new List<Command>();
-            for (int i = 1; i < saveArr.Length; i++)
-            {
-                var item = saveArr[i];
-                Program.commands.Add(item);
-                Program.codeCmds[item.Code] = item;
-            }
-            sr.Close();
-            UpdateList();
-        }
-
-        private void transmitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new TransmitForm().ShowDialog();
-        }
-
-        private void dupCmdButton_Click(object sender, EventArgs e) {
-            if (commandView.SelectedItems.Count == 0) return;
-            var cmd = new Command((Command)commandView.SelectedItems[0].Tag, false);
-            cmd.Code = (byte)Program.commands.Count;
-            Program.commands.Add(cmd);
-            UpdateList();
-            ScrollToLast();
-        }
-
-        public void ScrollToLast() {
-            commandView.Items[commandView.Items.Count - 1].EnsureVisible();
+        private void codeBox_TextChangedDelayed(object sender, FastColoredTextBoxNS.TextChangedEventArgs e) {
+            UpdateHighlighting();
         }
     }
 }

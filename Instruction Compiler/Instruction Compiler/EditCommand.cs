@@ -121,8 +121,8 @@ namespace Instruction_Compiler {
             if (varMode) {
                 ((CommandVariants)Owner).UpdateList();
             } else {
-                ((MainForm)Owner).UpdateList();
-                ((MainForm)Owner).ScrollToLast();
+                ((CommandMainForm)Owner).UpdateList();
+                ((CommandMainForm)Owner).ScrollToLast();
             }
         }
 

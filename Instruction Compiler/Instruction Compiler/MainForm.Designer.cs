@@ -1,410 +1,188 @@
-﻿namespace Instruction_Compiler
-{
-    partial class MainForm
-    {
+﻿namespace Instruction_Compiler {
+    partial class MainForm {
         /// <summary>
-        /// Erforderliche Designervariable.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Verwendete Ressourcen bereinigen.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        #region Vom Windows Form-Designer generierter Code
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// Erforderliche Methode für die Designerunterstützung.
-        /// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.clearConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.controlSignalsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.commandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transmitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configSaveDialog = new System.Windows.Forms.SaveFileDialog();
-            this.configOpenDialog = new System.Windows.Forms.OpenFileDialog();
-            this.newCmdButton = new System.Windows.Forms.Button();
-            this.remCmdButton = new System.Windows.Forms.Button();
-            this.commandView = new System.Windows.Forms.ListView();
-            this.nameHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.codeHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.editButton = new System.Windows.Forms.Button();
-            this.programSaveDialog = new System.Windows.Forms.SaveFileDialog();
-            this.programOpenDialog = new System.Windows.Forms.OpenFileDialog();
-            this.dupCmdButton = new System.Windows.Forms.Button();
+            this.progOpenDialog = new System.Windows.Forms.OpenFileDialog();
+            this.progSaveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.codeBox = new FastColoredTextBoxNS.FastColoredTextBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.codeBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.controlSignalsToolStripMenuItem,
+            this.commandsToolStripMenuItem,
             this.transmitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(655, 24);
-            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newProgramToolStripMenuItem,
-            this.saveProgramToolStripMenuItem,
-            this.loadProgramToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.clearConfigToolStripMenuItem,
-            this.saveConfigToolStripMenuItem,
-            this.loadConfigToolStripMenuItem});
+            this.newToolStripMenuItem,
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Text = "&File";
             // 
-            // newProgramToolStripMenuItem
+            // newToolStripMenuItem
             // 
-            this.newProgramToolStripMenuItem.Name = "newProgramToolStripMenuItem";
-            this.newProgramToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.newProgramToolStripMenuItem.Text = "New Program";
-            this.newProgramToolStripMenuItem.Click += new System.EventHandler(this.newProgramToolStripMenuItem_Click);
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.newToolStripMenuItem.Text = "&New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
-            // saveProgramToolStripMenuItem
+            // openToolStripMenuItem
             // 
-            this.saveProgramToolStripMenuItem.Name = "saveProgramToolStripMenuItem";
-            this.saveProgramToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.saveProgramToolStripMenuItem.Text = "Save Program";
-            this.saveProgramToolStripMenuItem.Click += new System.EventHandler(this.saveProgramToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.openToolStripMenuItem.Text = "&Open...";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
-            // loadProgramToolStripMenuItem
+            // saveToolStripMenuItem
             // 
-            this.loadProgramToolStripMenuItem.Name = "loadProgramToolStripMenuItem";
-            this.loadProgramToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.loadProgramToolStripMenuItem.Text = "Load Program";
-            this.loadProgramToolStripMenuItem.Click += new System.EventHandler(this.loadProgramToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.saveToolStripMenuItem.Text = "&Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
-            // toolStripSeparator1
+            // saveAsToolStripMenuItem
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(146, 6);
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.saveAsToolStripMenuItem.Text = "Save As...";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
-            // clearConfigToolStripMenuItem
+            // commandsToolStripMenuItem
             // 
-            this.clearConfigToolStripMenuItem.Name = "clearConfigToolStripMenuItem";
-            this.clearConfigToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.clearConfigToolStripMenuItem.Text = "Clear Config";
-            this.clearConfigToolStripMenuItem.Click += new System.EventHandler(this.clearConfigToolStripMenuItem_Click);
-            // 
-            // saveConfigToolStripMenuItem
-            // 
-            this.saveConfigToolStripMenuItem.Name = "saveConfigToolStripMenuItem";
-            this.saveConfigToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.saveConfigToolStripMenuItem.Text = "Save Config";
-            this.saveConfigToolStripMenuItem.Click += new System.EventHandler(this.saveConfigToolStripMenuItem_Click);
-            // 
-            // loadConfigToolStripMenuItem
-            // 
-            this.loadConfigToolStripMenuItem.Name = "loadConfigToolStripMenuItem";
-            this.loadConfigToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.loadConfigToolStripMenuItem.Text = "Load Config";
-            this.loadConfigToolStripMenuItem.Click += new System.EventHandler(this.loadConfigToolStripMenuItem_Click);
-            // 
-            // controlSignalsToolStripMenuItem
-            // 
-            this.controlSignalsToolStripMenuItem.Name = "controlSignalsToolStripMenuItem";
-            this.controlSignalsToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
-            this.controlSignalsToolStripMenuItem.Text = "Control Signals";
-            this.controlSignalsToolStripMenuItem.Click += new System.EventHandler(this.controlSignalsToolStripMenuItem_Click);
+            this.commandsToolStripMenuItem.Name = "commandsToolStripMenuItem";
+            this.commandsToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.commandsToolStripMenuItem.Text = "&Commands";
+            this.commandsToolStripMenuItem.Click += new System.EventHandler(this.commandsToolStripMenuItem_Click);
             // 
             // transmitToolStripMenuItem
             // 
             this.transmitToolStripMenuItem.Name = "transmitToolStripMenuItem";
             this.transmitToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.transmitToolStripMenuItem.Text = "Transmit";
-            this.transmitToolStripMenuItem.Click += new System.EventHandler(this.transmitToolStripMenuItem_Click);
+            this.transmitToolStripMenuItem.Text = "&Transmit";
             // 
-            // configSaveDialog
+            // progOpenDialog
             // 
-            this.configSaveDialog.DefaultExt = "sig";
-            this.configSaveDialog.Filter = "Signal Config|*.sig|All files|*.*";
-            this.configSaveDialog.InitialDirectory = "%userprofile%\\Documents";
+            this.progOpenDialog.Filter = "8BitCPU assembly files|*.8ba|All files|*.*";
             // 
-            // configOpenDialog
+            // progSaveDialog
             // 
-            this.configOpenDialog.DefaultExt = "sig";
-            this.configOpenDialog.Filter = "Signal Config|*.sig|All files|*.*";
-            this.configOpenDialog.InitialDirectory = "%userprofile%\\Documents";
+            this.progSaveDialog.Filter = "8BitCPU assembly files|*.8ba|All files|*.*";
             // 
-            // newCmdButton
+            // codeBox
             // 
-            this.newCmdButton.Location = new System.Drawing.Point(12, 27);
-            this.newCmdButton.Name = "newCmdButton";
-            this.newCmdButton.Size = new System.Drawing.Size(75, 23);
-            this.newCmdButton.TabIndex = 0;
-            this.newCmdButton.Text = "New";
-            this.newCmdButton.UseVisualStyleBackColor = true;
-            this.newCmdButton.Click += new System.EventHandler(this.newCmdButton_Click);
-            // 
-            // remCmdButton
-            // 
-            this.remCmdButton.Location = new System.Drawing.Point(268, 27);
-            this.remCmdButton.Name = "remCmdButton";
-            this.remCmdButton.Size = new System.Drawing.Size(93, 23);
-            this.remCmdButton.TabIndex = 2;
-            this.remCmdButton.Text = "Remove";
-            this.remCmdButton.UseVisualStyleBackColor = true;
-            this.remCmdButton.Click += new System.EventHandler(this.remCmdButton_Click);
-            // 
-            // commandView
-            // 
-            this.commandView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.commandView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameHeader,
-            this.codeHeader,
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9,
-            this.columnHeader10,
-            this.columnHeader11,
-            this.columnHeader12,
-            this.columnHeader13,
-            this.columnHeader14,
-            this.columnHeader15,
-            this.columnHeader16});
-            this.commandView.FullRowSelect = true;
-            this.commandView.Location = new System.Drawing.Point(12, 56);
-            this.commandView.MultiSelect = false;
-            this.commandView.Name = "commandView";
-            this.commandView.Size = new System.Drawing.Size(631, 412);
-            this.commandView.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.commandView.TabIndex = 5;
-            this.commandView.UseCompatibleStateImageBehavior = false;
-            this.commandView.View = System.Windows.Forms.View.Details;
-            // 
-            // nameHeader
-            // 
-            this.nameHeader.Text = "Name";
-            this.nameHeader.Width = 100;
-            // 
-            // codeHeader
-            // 
-            this.codeHeader.Text = "Code";
-            this.codeHeader.Width = 40;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Step 1";
-            this.columnHeader1.Width = 100;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Step 2";
-            this.columnHeader2.Width = 100;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Step 3";
-            this.columnHeader3.Width = 100;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Step 4";
-            this.columnHeader4.Width = 100;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Step 5";
-            this.columnHeader5.Width = 100;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Step 6";
-            this.columnHeader6.Width = 100;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Step 7";
-            this.columnHeader7.Width = 100;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Step 8";
-            this.columnHeader8.Width = 100;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Step 9";
-            this.columnHeader9.Width = 100;
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.Text = "Step 10";
-            this.columnHeader10.Width = 100;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "Step 11";
-            this.columnHeader11.Width = 100;
-            // 
-            // columnHeader12
-            // 
-            this.columnHeader12.Text = "Step 12";
-            this.columnHeader12.Width = 100;
-            // 
-            // columnHeader13
-            // 
-            this.columnHeader13.Text = "Step 13";
-            this.columnHeader13.Width = 100;
-            // 
-            // columnHeader14
-            // 
-            this.columnHeader14.Text = "Step 14";
-            this.columnHeader14.Width = 100;
-            // 
-            // columnHeader15
-            // 
-            this.columnHeader15.Text = "Step 15";
-            this.columnHeader15.Width = 100;
-            // 
-            // columnHeader16
-            // 
-            this.columnHeader16.Text = "Step 16";
-            this.columnHeader16.Width = 100;
-            // 
-            // editButton
-            // 
-            this.editButton.Location = new System.Drawing.Point(93, 27);
-            this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(75, 23);
-            this.editButton.TabIndex = 6;
-            this.editButton.Text = "Edit";
-            this.editButton.UseVisualStyleBackColor = true;
-            this.editButton.Click += new System.EventHandler(this.editButton_Click);
-            // 
-            // programSaveDialog
-            // 
-            this.programSaveDialog.DefaultExt = "mcp";
-            this.programSaveDialog.Filter = "Microcode program|*.mcp|All files|*.*";
-            this.programSaveDialog.InitialDirectory = "%userprofile%\\Documents";
-            // 
-            // programOpenDialog
-            // 
-            this.programOpenDialog.Filter = "Microcode program|*.mcp|All files|*.*";
-            this.programOpenDialog.InitialDirectory = "%userprofile%\\Documents";
-            // 
-            // dupCmdButton
-            // 
-            this.dupCmdButton.Location = new System.Drawing.Point(174, 27);
-            this.dupCmdButton.Name = "dupCmdButton";
-            this.dupCmdButton.Size = new System.Drawing.Size(88, 23);
-            this.dupCmdButton.TabIndex = 7;
-            this.dupCmdButton.Text = "Duplicate";
-            this.dupCmdButton.UseVisualStyleBackColor = true;
-            this.dupCmdButton.Click += new System.EventHandler(this.dupCmdButton_Click);
+            this.codeBox.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.codeBox.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\n^\\s*(case|default)\\s*[^:]*(" +
+    "?<range>:)\\s*(?<range>[^;]+);";
+            this.codeBox.AutoScrollMinSize = new System.Drawing.Size(51, 17);
+            this.codeBox.BackBrush = null;
+            this.codeBox.CharHeight = 17;
+            this.codeBox.CharWidth = 8;
+            this.codeBox.CommentPrefix = "#";
+            this.codeBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.codeBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.codeBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.codeBox.Font = new System.Drawing.Font("Consolas", 11.25F);
+            this.codeBox.IsReplaceMode = false;
+            this.codeBox.LineNumberValues = ((System.Collections.Generic.List<int>)(resources.GetObject("codeBox.LineNumberValues")));
+            this.codeBox.Location = new System.Drawing.Point(0, 24);
+            this.codeBox.Name = "codeBox";
+            this.codeBox.Paddings = new System.Windows.Forms.Padding(0);
+            this.codeBox.ReservedCountOfLineNumberChars = 4;
+            this.codeBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.codeBox.ServiceColors = null;
+            this.codeBox.Size = new System.Drawing.Size(800, 426);
+            this.codeBox.TabIndex = 2;
+            this.codeBox.Zoom = 100;
+            this.codeBox.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.codeBox_TextChangedDelayed);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(655, 480);
-            this.Controls.Add(this.dupCmdButton);
-            this.Controls.Add(this.editButton);
-            this.Controls.Add(this.commandView);
-            this.Controls.Add(this.remCmdButton);
-            this.Controls.Add(this.newCmdButton);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.codeBox);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Instruction Compiler";
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Text = "8BitCPU Compiler";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.codeBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem controlSignalsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newProgramToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveProgramToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadProgramToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem clearConfigToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveConfigToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadConfigToolStripMenuItem;
-        private System.Windows.Forms.SaveFileDialog configSaveDialog;
-        private System.Windows.Forms.OpenFileDialog configOpenDialog;
-        private System.Windows.Forms.Button newCmdButton;
-        private System.Windows.Forms.Button remCmdButton;
-        private System.Windows.Forms.ListView commandView;
-        private System.Windows.Forms.ColumnHeader nameHeader;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
-        private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.ColumnHeader columnHeader10;
-        private System.Windows.Forms.ColumnHeader columnHeader11;
-        private System.Windows.Forms.ColumnHeader columnHeader12;
-        private System.Windows.Forms.ColumnHeader columnHeader13;
-        private System.Windows.Forms.ColumnHeader columnHeader14;
-        private System.Windows.Forms.ColumnHeader columnHeader15;
-        private System.Windows.Forms.ColumnHeader columnHeader16;
-        private System.Windows.Forms.Button editButton;
-        private System.Windows.Forms.SaveFileDialog programSaveDialog;
-        private System.Windows.Forms.OpenFileDialog programOpenDialog;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem commandsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem transmitToolStripMenuItem;
-        private System.Windows.Forms.ColumnHeader codeHeader;
-        private System.Windows.Forms.Button dupCmdButton;
+        private System.Windows.Forms.OpenFileDialog progOpenDialog;
+        private System.Windows.Forms.SaveFileDialog progSaveDialog;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private FastColoredTextBoxNS.FastColoredTextBox codeBox;
     }
 }
-

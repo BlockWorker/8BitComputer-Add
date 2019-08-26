@@ -318,7 +318,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV A, lit</Name>
+    <Name>MOV A, xx</Name>
     <Code>1</Code>
     <Variants />
   </Command>
@@ -449,7 +449,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV B, lit</Name>
+    <Name>MOV B, xx</Name>
     <Code>2</Code>
     <Variants />
   </Command>
@@ -580,7 +580,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV S, lit</Name>
+    <Name>MOV S, xx</Name>
     <Code>3</Code>
     <Variants />
   </Command>
@@ -711,7 +711,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV V, lit</Name>
+    <Name>MOV V, xx</Name>
     <Code>4</Code>
     <Variants />
   </Command>
@@ -842,7 +842,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV ZH, lit</Name>
+    <Name>MOV ZH, xx</Name>
     <Code>5</Code>
     <Variants />
   </Command>
@@ -973,7 +973,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV ZL, lit</Name>
+    <Name>MOV ZL, xx</Name>
     <Code>6</Code>
     <Variants />
   </Command>
@@ -1116,7 +1116,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV Z, lit</Name>
+    <Name>MOV Z, xxyy</Name>
     <Code>7</Code>
     <Variants />
   </Command>
@@ -1259,7 +1259,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [Z], lit</Name>
+    <Name>MOV [Z], xx</Name>
     <Code>8</Code>
     <Variants />
   </Command>
@@ -1410,7 +1410,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [lit], lit</Name>
+    <Name>MOV [yy], xx</Name>
     <Code>9</Code>
     <Variants />
   </Command>
@@ -2351,7 +2351,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [lit], [Z]</Name>
+    <Name>MOV [xx], [Z]</Name>
     <Code>16</Code>
     <Variants />
   </Command>
@@ -2490,7 +2490,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV A, [lit]</Name>
+    <Name>MOV A, [xx]</Name>
     <Code>17</Code>
     <Variants />
   </Command>
@@ -2629,7 +2629,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV B, [lit]</Name>
+    <Name>MOV B, [xx]</Name>
     <Code>18</Code>
     <Variants />
   </Command>
@@ -2768,7 +2768,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV S, [lit]</Name>
+    <Name>MOV S, [xx]</Name>
     <Code>19</Code>
     <Variants />
   </Command>
@@ -2907,7 +2907,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV V, [lit]</Name>
+    <Name>MOV V, [xx]</Name>
     <Code>20</Code>
     <Variants />
   </Command>
@@ -3046,7 +3046,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV ZH, [lit]</Name>
+    <Name>MOV ZH, [xx]</Name>
     <Code>21</Code>
     <Variants />
   </Command>
@@ -3185,7 +3185,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV ZL, [lit]</Name>
+    <Name>MOV ZL, [xx]</Name>
     <Code>22</Code>
     <Variants />
   </Command>
@@ -3336,7 +3336,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [Z], [lit]</Name>
+    <Name>MOV [Z], [xx]</Name>
     <Code>23</Code>
     <Variants />
   </Command>
@@ -3499,7 +3499,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [lit], [lit]</Name>
+    <Name>MOV [yy], [xx]</Name>
     <Code>24</Code>
     <Variants />
   </Command>
@@ -4384,7 +4384,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [lit], A</Name>
+    <Name>MOV [xx], A</Name>
     <Code>31</Code>
     <Variants />
   </Command>
@@ -5269,7 +5269,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [lit], S</Name>
+    <Name>MOV [xx], S</Name>
     <Code>38</Code>
     <Variants />
   </Command>
@@ -6154,7 +6154,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [lit], V</Name>
+    <Name>MOV [xx], V</Name>
     <Code>45</Code>
     <Variants />
   </Command>
@@ -6916,7 +6916,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [lit], ZH</Name>
+    <Name>MOV [xx], ZH</Name>
     <Code>51</Code>
     <Variants />
   </Command>
@@ -7678,7 +7678,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [lit], ZL</Name>
+    <Name>MOV [xx], ZL</Name>
     <Code>57</Code>
     <Variants />
   </Command>
@@ -8440,7 +8440,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [lit], C</Name>
+    <Name>MOV [xx], C</Name>
     <Code>63</Code>
     <Variants />
   </Command>
@@ -9202,7 +9202,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>MOV [lit], P</Name>
+    <Name>MOV [xx], P</Name>
     <Code>69</Code>
     <Variants />
   </Command>
@@ -9873,7 +9873,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>SWP A, [lit]</Name>
+    <Name>SWP A, [xx]</Name>
     <Code>74</Code>
     <Variants />
   </Command>
@@ -10413,7 +10413,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>SWP S, [lit]</Name>
+    <Name>SWP S, [xx]</Name>
     <Code>78</Code>
     <Variants />
   </Command>
@@ -10822,7 +10822,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>SWP V, [lit]</Name>
+    <Name>SWP V, [xx]</Name>
     <Code>81</Code>
     <Variants />
   </Command>
@@ -10969,7 +10969,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>SWP ZH, [lit]</Name>
+    <Name>SWP ZH, [xx]</Name>
     <Code>82</Code>
     <Variants />
   </Command>
@@ -11116,7 +11116,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>SWP ZL, [lit]</Name>
+    <Name>SWP ZL, [xx]</Name>
     <Code>83</Code>
     <Variants />
   </Command>
@@ -11370,7 +11370,7 @@
         </SignalState>
       </ArrayOfSignalState>
     </SignalSteps>
-    <Name>OMD lit</Name>
+    <Name>OMD xx</Name>
     <Code>85</Code>
     <Variants />
   </Command>
