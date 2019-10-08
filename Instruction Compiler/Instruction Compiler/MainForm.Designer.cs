@@ -108,6 +108,7 @@
             this.transmitToolStripMenuItem.Name = "transmitToolStripMenuItem";
             this.transmitToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.transmitToolStripMenuItem.Text = "&Transmit";
+            this.transmitToolStripMenuItem.Click += new System.EventHandler(this.transmitToolStripMenuItem_Click);
             // 
             // progOpenDialog
             // 
@@ -183,6 +184,6 @@
         private System.Windows.Forms.OpenFileDialog progOpenDialog;
         private System.Windows.Forms.SaveFileDialog progSaveDialog;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-        private FastColoredTextBoxNS.FastColoredTextBox codeBox;
+        public FastColoredTextBoxNS.FastColoredTextBox codeBox;
     }
 }

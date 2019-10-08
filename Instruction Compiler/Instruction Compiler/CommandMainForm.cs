@@ -304,7 +304,7 @@ namespace Instruction_Compiler
 
         private void transmitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new TransmitForm().ShowDialog();
+            new MicrocodeTransmitForm().ShowDialog();
         }
 
         private void dupCmdButton_Click(object sender, EventArgs e) {

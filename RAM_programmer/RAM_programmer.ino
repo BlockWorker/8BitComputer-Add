@@ -19,8 +19,6 @@
 
 bool userInput = true;
 
-const byte data[] = { 0x57, 0x54, 0x28, 0x1b, 0x59, 0x5d };
-
 void setup() {  
   pinMode(SH_CLR, OUTPUT);
   pinMode(SH_CLK, OUTPUT);
@@ -39,17 +37,58 @@ void setup() {
   pinMode(IN_ACTIVE, INPUT);
   switchInput(true);
 
-  Serial.begin(9600);
-
-  for (uint16_t i = 0; i < 6; i++) {
-    writeByte(i, data[i]);
-  }
-  writeByte(0xfe, 0);
-  writeByte(0xff, 1);
+  Serial.begin(100000);
 }
 
 void loop() {
-  
+  processSerial();
+}
+
+void processSerial() {
+  if (Serial.available() < 1) return;
+  uint16_t addr;
+  uint16_t len;
+  byte* buf;
+  int timeout;
+  switch (Serial.read()) {
+    case 0:
+      timeout = 0;
+      while (Serial.available() < 3) {
+        timeout++;
+        if (timeout > 1000) {
+          Serial.write(0);
+          return;
+        }
+        delay(1);
+      }
+      addr = (Serial.read() << 8) | Serial.read();
+      len = Serial.read() + 1;
+      buf = new byte[len];
+      for (byte i = 0; i < len; i++) {
+        timeout = 0;
+        while (Serial.available() < 1){
+          timeout++;
+          if (timeout > 100000) {
+            Serial.write(0);
+            return;
+          }
+          delayMicroseconds(10);
+        }
+        buf[i] = Serial.read();
+      }
+      for (byte i = 0; i < len; i++) {
+        writeByte(addr + i, buf[i]);
+      }
+      delay(15);
+      Serial.write(1);
+      break;
+    case 1:
+      Serial.write(1);
+      break;
+    default:
+      Serial.write(0);
+      break;
+  }
 }
 
 void writeByte(uint16_t addr, uint8_t data) {

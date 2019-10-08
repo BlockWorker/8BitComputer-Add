@@ -155,6 +155,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProgramTransmitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgramTransmitForm.Designer.cs">
+      <DependentUpon>ProgramTransmitForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Signal.cs" />
@@ -164,11 +170,11 @@
     <Compile Include="SignalConfig.Designer.cs">
       <DependentUpon>SignalConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="TransmitForm.cs">
+    <Compile Include="MicrocodeTransmitForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TransmitForm.Designer.cs">
-      <DependentUpon>TransmitForm.cs</DependentUpon>
+    <Compile Include="MicrocodeTransmitForm.Designer.cs">
+      <DependentUpon>MicrocodeTransmitForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="CommandVariants.resx">
       <DependentUpon>CommandVariants.cs</DependentUpon>
@@ -204,6 +210,9 @@
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProgramTransmitForm.resx">
+      <DependentUpon>ProgramTransmitForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -217,8 +226,8 @@
     <EmbeddedResource Include="SignalConfig.resx">
       <DependentUpon>SignalConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TransmitForm.resx">
-      <DependentUpon>TransmitForm.cs</DependentUpon>
+    <EmbeddedResource Include="MicrocodeTransmitForm.resx">
+      <DependentUpon>MicrocodeTransmitForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="FastColoredTextBox\FCTB_key.snk" />
     <None Include="FastColoredTextBox\SyntaxHighlighter.cs.old" />

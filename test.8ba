@@ -6,7 +6,7 @@ inp
 mov zl, a
 mov b, [z]
 inp
-mul
+add
 out
 jmp
 .addr 0020

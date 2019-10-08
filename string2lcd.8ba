@@ -1,0 +1,32 @@
+.inst "main.mcp"
+mov [fe], 00
+mov a, 30
+txi
+txi
+txi #data length init
+mov a, 01
+txi
+mov a, 02
+txi
+mov a, 06
+txi
+mov a, 0f
+txi
+mov a, 80
+txi
+mov zh, 01
+mov zl, 80
+mov b, 00
+mov a, [z]
+cmp
+mov [ff], 2b
+jeq
+txd
+mov a, zl
+inc
+mov zl, a
+mov [ff], 1b
+jmp
+hlt
+.addr 0180
+.data 48 65 6c 6c 6f 20 57 6f 72 6c 64 21 00

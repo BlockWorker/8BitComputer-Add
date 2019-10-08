@@ -1,6 +1,6 @@
 ﻿namespace Instruction_Compiler
 {
-    partial class TransmitForm
+    partial class MicrocodeTransmitForm
     {
         /// <summary>
         /// Required designer variable.
@@ -138,7 +138,7 @@
             this.checkDiffButton.UseVisualStyleBackColor = true;
             this.checkDiffButton.Click += new System.EventHandler(this.checkDiffButton_Click);
             // 
-            // TransmitForm
+            // MicrocodeTransmitForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -153,8 +153,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.portSelect);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "TransmitForm";
-            this.Text = "Transmit Program";
+            this.Name = "MicrocodeTransmitForm";
+            this.Text = "Transmit Microcode Program";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TransmitForm_FormClosing);
             this.Load += new System.EventHandler(this.TransmitForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chipSelect)).EndInit();

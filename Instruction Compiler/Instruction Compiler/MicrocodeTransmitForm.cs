@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace Instruction_Compiler
 {
-    public partial class TransmitForm : Form
+    public partial class MicrocodeTransmitForm : Form
     {
         private byte[] data = new byte[8192];
         private int seg = 0;
@@ -21,7 +21,7 @@ namespace Instruction_Compiler
         private SerialPortStream portStream;
         private byte[] oldData = new byte[8192];
 
-        public TransmitForm()
+        public MicrocodeTransmitForm()
         {
             InitializeComponent();
             port.NewLine = "\n";

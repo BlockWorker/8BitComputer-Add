@@ -46,6 +46,7 @@ namespace Instruction_Compiler {
                 var lRange = codeBox.GetLine(i);
                 if (currAddr < 0) {
                     codeBox.LineNumberValues.Add(currAddr);
+                    lRange.ClearStyle(redStyle);
                     continue;
                 }
                 bool found = false;
@@ -92,6 +93,59 @@ namespace Instruction_Compiler {
                 }
             }
             codeBox.LineNumberValues.Add(currAddr);
+        }
+
+        public int[] Compile() {
+            var data = new List<int>();
+            int currAddr = 0;
+            int lastAddr = 0;
+            for (int i = 0; i < codeBox.LinesCount; i++) {
+                lastAddr = currAddr;
+                var line = codeBox.Lines[i];
+                bool found = false;
+                if (commentOnlyRegex.IsMatch(line) || instCommandRegex.IsMatch(line)) {
+                    found = true;
+                } else if (addrCommandRegex.IsMatch(line)) {
+                    var match = addrCommandRegex.Match(line);
+                    var newAddr = int.Parse(match.Groups[1].Value, System.Globalization.NumberStyles.HexNumber);
+                    currAddr = newAddr;
+                    data.Add(newAddr | 0x8000);
+                    found = true;
+                } else if (dataCommandRegex.IsMatch(line)) {
+                    var match = dataCommandRegex.Match(line);
+                    var dataStr = match.Groups[1].Value.Replace(" ", "");
+                    currAddr += dataStr.Length / 2;
+                    while (dataStr.Length > 2) {
+                        data.Add(int.Parse(dataStr.Substring(0, 2), System.Globalization.NumberStyles.HexNumber));
+                        dataStr = dataStr.Substring(2);
+                    }
+                    data.Add(int.Parse(dataStr, System.Globalization.NumberStyles.HexNumber));
+                    found = true;
+                } else foreach (var (regex, cmd) in Program.regexCommands) {
+                        if (regex.IsMatch(line)) {
+                            currAddr += cmd.ByteLength;
+                            data.Add(cmd.Code);
+                            var match = regex.Match(line);
+                            switch (match.Groups.Count) {
+                                case 2:
+                                    data.Add(int.Parse(match.Groups[1].Value, System.Globalization.NumberStyles.HexNumber));
+                                    break;
+                                case 3:
+                                    data.Add(int.Parse(match.Groups["x"].Value, System.Globalization.NumberStyles.HexNumber));
+                                    data.Add(int.Parse(match.Groups["y"].Value, System.Globalization.NumberStyles.HexNumber));
+                                    break;
+                            }
+                            found = true;
+                            break;
+                        }
+                    }
+                if (!found) {
+                    MessageBox.Show("Compile error at line " + (i + 1) + " (address " + lastAddr.ToString("X4") + ").", "Compilation failed!");
+                    return null;
+                }
+            }
+
+            return data.ToArray();
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -147,6 +201,10 @@ namespace Instruction_Compiler {
 
         private void codeBox_TextChangedDelayed(object sender, FastColoredTextBoxNS.TextChangedEventArgs e) {
             UpdateHighlighting();
+        }
+
+        private void transmitToolStripMenuItem_Click(object sender, EventArgs e) {
+            new ProgramTransmitForm().ShowDialog(this);
         }
     }
 }
