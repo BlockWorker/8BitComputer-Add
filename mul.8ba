@@ -1,0 +1,8 @@
+.inst "main.mcp"
+mov [fe], 00
+mov [ff], 06
+inp
+mov zl, a
+inp
+mul
+jmp
